@@ -1,0 +1,18 @@
+{% block contents %}
+<div>게시판!</div>
+<div><a href="{% url 'post:post_write' %}"><button>글쓰기</button></a></div>
+<div style="border: 1px black solid; margin: 20px 0px;"></div>
+
+<!-- 게시글 목록 -->
+{% for post in posts %}
+<div style="text-align: center;">
+    <a href="/post/detail/{{ post.pk }}/" style="color: black;">
+        <tr>
+            <td>{{ post.title }}</td>
+            <td>{{ post.writer.user_name }}</td>
+            <td>{{ post.write_dttm|date:"Y-m-d" }}</td>
+        </tr>
+    </a>
+</div>
+{% endfor %}
+{% endblock contents %}
