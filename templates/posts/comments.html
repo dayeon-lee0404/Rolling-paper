@@ -1,0 +1,23 @@
+
+{% block contents %}
+    <!--read-->
+{% if comments %}
+  <p><b>{{ comments|length }}개의 댓글이 있습니다.</b></p>
+{% endif %}
+<ul>
+  {% for comment in comments %}
+    <li>
+      {{ comment.comment_writer }} - {{ comment.content }}
+      <!--delete-->
+      {% if user == comment.comment_writer %}
+        <form action="{% url 'post:comments_delete' comment.id %}" method="POST" class="d-inline">
+          {% csrf_token %}
+          <input type="submit" value="DELETE">
+        </form>
+      {% endif %}
+    </li>
+  {% empty %}
+    <p>댓글이 없어요..</p>
+  {% endfor %}
+</ul>
+{% endblock contents %}

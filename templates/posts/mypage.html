@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+내가 쓴 글<br>
 {% block content %}
   <div class="container my-3">
     <table class="table">
@@ -11,16 +12,13 @@
         </tr>
         </thead>
         <tbody>
-        {% if page_obj.object_list %}
-        {% for post in page_obj.object_list %}
+        {% if posts%}
+        {% for post in posts %}
         <tr class="text-center">
             <td>
+                <span class="badge bg-light px-2 py-1" style="color: rgb(204, 204, 204);">
                     {{ post.post_name }}
-            </td>
-            <td class="text-left">
-                <a href="{% url 'post:post_detail' post.id %}">
-                    {{ post.title }}
-                </a>
+                </span>
             </td>
             <td class="text-left">
                 <a href="{% url 'post:post_detail' post.id %}">

@@ -21,7 +21,7 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    Post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post_id = models.ForeignKey(Post, on_delete=models.CASCADE)
     comment_writer = models.ForeignKey('common.User', on_delete=models.CASCADE, verbose_name='댓글 작성자')
     content = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)

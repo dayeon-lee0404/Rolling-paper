@@ -3,9 +3,9 @@
 <div>게시판 상세보기!</div>
 <div style="border: 1px black solid; margin: 20px 0px;"></div>
 
-{% if writer %}
-<a href="/post/detail/{{ post.id }}/modify/"><button>수정</button></a>
-<a href="/post/detail/{{ post.id }}/delete/"><button>삭제</button></a>
+{% if post.writer == request.user %}
+<a href="/post_detail/{{ post.id }}/modify/"><button>수정</button></a>
+<a href="/post_detail/{{ post.id }}/delete/"><button>삭제</button></a>
 {% endif %}
 
 <div>
@@ -20,41 +20,18 @@
 <div>
     내용 : {{ post.contents|safe }}
 </div>
-<h4>댓글 목록</h4>
 
-<!--read-->
-{% if comments %}
-  <p><b>{{ comments|length }}개의 댓글이 있습니다.</b></p>
-{% endif %}
-<ul>
-  {% for comment in comments %}
-    <li>
-      {{ comment.comment_writer }} - {{ comment.content }}
-      <!--delete-->
-      {% if user == comment.comment_writer %}
-        <form action="{% url 'post:comments_delete' post.pk comment.pk %}" method="POST" class="d-inline">
-          {% csrf_token %}
-          <input type="submit" value="DELETE">
-        </form>
-      {% endif %}
-    </li>
-  {% empty %}
-    <p>댓글이 없어요..</p>
-  {% endfor %}
-</ul>
-
+ <form action="{% url 'post:comments_view' post.id %}" method="POST" class="my-3">
+    {% csrf_token %}
+    <input type="submit" value="댓글 조회하기" class="btn btn-primary">
+ </form>
+<!--create-->
+ <form action="{% url 'post:comments_input' post.id %}" method="POST" class="my-3">
+    {% csrf_token %}
+    <input type="submit" value="댓글 달기" class="btn btn-primary">
+ </form>
 <hr>
 
 <!--create-->
-{% if request.user.is_authenticated %}
-  <form action="{% url 'post:comments_create' post.pk %}" method="POST">
-    {% csrf_token %}
-    {{ comment_form }}
-    <input type="submit">
-  </form>
-{% else %}
-  <a href="{% url 'accounts:login' %}">[댓글을 작성하려면 로그인하세요.]</a>
-{% endif %}
-{% endblock content %}
 
-<!--생략-->
+{% endblock contents %}

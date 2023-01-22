@@ -8,8 +8,7 @@ from django_summernote.widgets import SummernoteWidget
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        # fields = '__all__'
-        exclude = ('post', 'user',)
+        fields = ['content']
 
 
 class PostWriteForm(forms.ModelForm):
@@ -25,8 +24,10 @@ class PostWriteForm(forms.ModelForm):
     contents = SummernoteTextField()
 
     options = (
-        ('Graduate', '축하 게시판'),
-        ('consolation', '위로')
+        ('Graduate', '축하'),
+        ('Consolation', '위로'),
+        ('Anniversary', '기념일'),
+        ('Cheering', '응원'),
     )
 
     post_name = forms.ChoiceField(

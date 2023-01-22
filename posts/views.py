@@ -3,6 +3,7 @@ from django.views.decorators.http import require_POST
 from posts.forms import CommentForm
 from posts.models import Post, Comment
 
+from django.views.generic.list import ListView
 from django.shortcuts import render, redirect
 from .forms import PostWriteForm
 from .models import Post
@@ -20,99 +21,101 @@ def index(request):
 
 
 @require_POST
-def comments_create(request, pk):
+def comments_create(request, id):
     if request.user.is_authenticated:
-        post = get_object_or_404(Post, pk=pk)
+        post = get_object_or_404(Post, id=id)
+        print(post)
+        user = request.user
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
-            comment.post = post
-            comment.comment_writer = request.user
+            comment.post_id = post
+            comment.comment_writer = user
             comment.save()
-        return redirect('post:detail', post.pk)
+        return redirect(f'/post_detail/{id}/')
     return redirect('login')
 
 
 @require_POST
-def comments_delete(request, post_pk, comment_pk):
+def comments_delete(request, comment_id):
     if request.user.is_authenticated:
-        comment = get_object_or_404(Comment, pk=comment_pk)
-        if request.user == comment.user:
+        comment = get_object_or_404(Comment, id=comment_id)
+        post_id = comment.post_id.id
+        if request.user == comment.comment_writer:
             comment.delete()
-    return redirect('post:detail', post_pk)
+    return redirect(f'/post_detail/{post_id}/')
 
 
-def post_list(request):
-    login_session = request.session.get('login_session', '')
-    context = {'login_session': login_session}
-    return render(request, 'posts/post_list.html', context)
+@require_POST
+def comments_view(request, post_id):
+    if request.user.is_authenticated:
+        comments = Comment.objects.filter(post_id=post_id)
+        print(comments)
+        context = {'comments': comments}
+        response = render(request, 'posts/comments.html', context)
+        return response
+    return redirect(f'/post_detail/{post_id}/')
 
 
-def post_detail(request, pk):
-    login_session = request.session.get('login_session', '')
-    context = {'login_session': login_session}
-    post = get_object_or_404(Post, id=pk)
-    context['post'] = post
+class post_list(ListView):
+    model = Post
+    ordering = '-write_dttm'
+    paginate_by = 10
 
-    # 글쓴이인지 확인
-    if post.writer.username == login_session:
-        context['writer'] = True
-    else:
-        context['writer'] = False
 
+def post_detail(request, id):
+    post = get_object_or_404(Post, id=id)
+    comments = Comment.objects.filter(post_id=id)
+    print(comments)
+    context = {'post': post, 'comments': comments}
     response = render(request, 'posts/post_detail.html', context)
-
-    # 조회수 기능(쿠키이용)
-    expire_date, now = datetime.now(), datetime.now()
-    expire_date += timedelta(days=1)
-    expire_date = expire_date.replace(hour=0, minute=0, second=0, microsecond=0)
-    expire_date -= now
-    max_age = expire_date.total_seconds()
     return response
 
 
+def comments_input(request, id):
+    post = get_object_or_404(Post, id=id)
+    context = {'post': post}
+    response = render(request, 'posts/create_comment.html', context)
+    return response
+
 @login_message_required
 def post_write(request):
-    login_session = request.session.get('login_session', '')
-    context = {'login_session': login_session}
-
     if request.method == 'GET':
         write_form = PostWriteForm()
-        context['forms'] = write_form
+        context = {'forms': write_form}
         return render(request, 'posts/post_write.html', context)
 
     elif request.method == 'POST':
         write_form = PostWriteForm(request.POST)
 
         if write_form.is_valid():
-            print(User.objects.get(email=login_session))
-            writer = User.objects.get(email=login_session)
+            writer = request.user
             post = Post(
                 title=write_form.title,
                 contents=write_form.contents,
-                writer = writer,
+                writer=writer,
                 post_name=write_form.post_name
             )
             post.save()
-            return redirect('/posts/index.html')
+            return redirect('/list')
         else:
-            context['forms'] = write_form
+            context = {'forms': write_form}
             if write_form.errors:
                 for value in write_form.errors.values():
                     context['error'] = value
-            return render(request, 'posts/post_write.html', context)
+            return render(request, 'posts/post_list.html', context)
 
 
 @login_message_required
-def post_modify(request, pk):
-    login_session = request.session.get('login_session', '')
+def post_modify(request, id):
+    login_session = request.session.get('request.user', '')
     context = {'login_session': login_session}
 
-    post = get_object_or_404(Post, id=pk)
+    post = get_object_or_404(Post, id=id)
     context['post'] = post
 
-    if post.writer.username != login_session:
-        return redirect(f'/posts/detail/{pk}/')
+    if post.writer != request.user:
+        return redirect(f'/post_detail/{id}/')
 
     if request.method == 'GET':
         write_form = PostWriteForm(instance=post)
@@ -127,7 +130,7 @@ def post_modify(request, pk):
             post.contents = write_form.contents
             post.post_name = write_form.post_name
             post.save()
-            return redirect('/posts')
+            return redirect(f'/post_detail/{id}/')
         else:
             context['forms'] = write_form
             if write_form.errors:
@@ -136,11 +139,21 @@ def post_modify(request, pk):
             return render(request, 'posts/post_modify.html', context)
 
 
-def post_delete(request, pk):
-    login_session = request.session.get('login_session', '')
-    post = get_object_or_404(Post, id=pk)
-    if post.writer.username == login_session:
+@login_message_required
+def mypage(request):
+    if request.user.is_authenticated:
+        user = request.user
+        posts = Post.objects.filter(writer=user)
+        context = {'posts': posts}
+        print(posts)
+        return render(request, 'posts/mypage.html', context)
+    return redirect('/login')
+
+
+def post_delete(request, id):
+    post = get_object_or_404(Post, id=id)
+    if post.writer == request.user:
         post.delete()
-        return redirect('/posts')
+        return redirect('/list')
     else:
-        return redirect(f'/posts/detail/{pk}/')
+        return redirect(f'/post_detail/{id}/')

@@ -1,0 +1,15 @@
+
+{% block contents %}
+<!--create-->
+{% if request.user != null%}
+  <form action="{% url 'post:comments_create' post.id %}" method="POST" class="my-3">
+       {% csrf_token %}
+       <label for="content"></label>
+       <textarea name="content" id="content" rows="10" ></textarea>
+       <hr>
+       <input type="submit" value="등록하기" class="btn btn-primary">
+   </form>
+{% else %}
+  <a href="{% url 'common:login' %}">[댓글을 작성하려면 로그인하세요.]</a>
+{% endif %}
+{% endblock contents %}
