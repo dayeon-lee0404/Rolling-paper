@@ -10,7 +10,7 @@ class Post(models.Model):
 
     post_name = models.CharField(max_length=32, default='Python', verbose_name='게시판 종류')
     update_dttm = models.DateTimeField(auto_now=True, verbose_name='마지막 수정일')
-
+    dday_ddmt = models.CharField(max_length=64, verbose_name='마지막 수정일')
     def __str__(self):
         return self.title
 

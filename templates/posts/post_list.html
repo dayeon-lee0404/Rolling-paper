@@ -22,11 +22,6 @@
                     {{ post.title }}
                 </a>
             </td>
-            <td class="text-left">
-                <a href="{% url 'post:post_detail' post.id %}">
-                    {{ post.title }}
-                </a>
-            </td>
             <td>{{ post.writer }}</td>
             {% if post.update_dttm %}
                 <td>{{ post.update_dttm }}</td>

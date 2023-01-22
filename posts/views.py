@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.http import require_POST
 from posts.forms import CommentForm
 from posts.models import Post, Comment
-
+import re
 from django.views.generic.list import ListView
 from django.shortcuts import render, redirect
 from .forms import PostWriteForm
@@ -24,7 +24,6 @@ def index(request):
 def comments_create(request, id):
     if request.user.is_authenticated:
         post = get_object_or_404(Post, id=id)
-        print(post)
         user = request.user
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
@@ -48,13 +47,13 @@ def comments_delete(request, comment_id):
 
 @require_POST
 def comments_view(request, post_id):
+    if request.method == 'GET':
+        return redirect(f'/post_detail/{post_id}/')
     if request.user.is_authenticated:
         comments = Comment.objects.filter(post_id=post_id)
-        print(comments)
         context = {'comments': comments}
         response = render(request, 'posts/comments.html', context)
         return response
-    return redirect(f'/post_detail/{post_id}/')
 
 
 class post_list(ListView):
@@ -66,8 +65,12 @@ class post_list(ListView):
 def post_detail(request, id):
     post = get_object_or_404(Post, id=id)
     comments = Comment.objects.filter(post_id=id)
-    print(comments)
-    context = {'post': post, 'comments': comments}
+    #dday가 되었는지 판단
+    dday = str(post.dday_ddmt)[:10]
+    write_ddmt = str(post.write_dttm)[:10]
+    is_dday = dday <= write_ddmt
+    print(is_dday, dday, write_ddmt)
+    context = {'post': post, 'comments': comments, 'is_dday': is_dday, 'dday' : dday}
     response = render(request, 'posts/post_detail.html', context)
     return response
 
@@ -87,14 +90,15 @@ def post_write(request):
 
     elif request.method == 'POST':
         write_form = PostWriteForm(request.POST)
-
-        if write_form.is_valid():
+        dday_ddmt = request.POST['dday_ddmt']
+        if write_form.is_valid() and dday_ddmt != '':
             writer = request.user
             post = Post(
                 title=write_form.title,
                 contents=write_form.contents,
                 writer=writer,
-                post_name=write_form.post_name
+                post_name=write_form.post_name,
+                dday_ddmt=dday_ddmt,
             )
             post.save()
             return redirect('/list')
@@ -103,6 +107,9 @@ def post_write(request):
             if write_form.errors:
                 for value in write_form.errors.values():
                     context['error'] = value
+            if dday_ddmt == '':
+                context['error'] = '날짜를 선택하세요'
+                return render(request, 'posts/post_write.html', context)
             return render(request, 'posts/post_list.html', context)
 
 
@@ -145,7 +152,6 @@ def mypage(request):
         user = request.user
         posts = Post.objects.filter(writer=user)
         context = {'posts': posts}
-        print(posts)
         return render(request, 'posts/mypage.html', context)
     return redirect('/login')
 
