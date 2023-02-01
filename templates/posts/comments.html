@@ -1,23 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <link rel = "stylesheet" href = "{% static 'css/mypage.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <!-- header -->
+        <div class="header">
+            <div class="logo">
+                <!-- 클릭 시 첫 화면으로 돌아갑니다. -->
+                <a href="{% url 'post:index' %} ">Rolling Paper</a>
+            </div>
+            <div class="logInOut">
+                <!-- 클릭 시 첫번째 화면으로 이동해야 합니다. -->
+                <a class="logout" href="{% url 'account_logout' %}">로그아웃</a>
+            </div>
+        </div>
+        <!-- content -->
+        <div class="myPaper">
+            <div class="myPaperHeader">
+                <div class="owner">
+                    <!-- 임시로 하드코딩하였습니다. 추후 백에서 데이터를 받아와야 하는 부분입니다. -->
+                </div>
+                <div class="back">
+                    <!-- 화살표 클릭시 메인페이지로 돌아갑니다.` -->
 
-{% block contents %}
-    <!--read-->
-{% if comments %}
-  <p><b>{{ comments|length }}개의 댓글이 있습니다.</b></p>
-{% endif %}
-<ul>
-  {% for comment in comments %}
-    <li>
-      {{ comment.comment_writer }} - {{ comment.content }}
-      <!--delete-->
-      {% if user == comment.comment_writer %}
-        <form action="{% url 'post:comments_delete' comment.id %}" method="POST" class="d-inline">
-          {% csrf_token %}
-          <input type="submit" value="DELETE">
-        </form>
-      {% endif %}
-    </li>
-  {% empty %}
-    <p>댓글이 없어요..</p>
-  {% endfor %}
-</ul>
-{% endblock contents %}
+                    <p id="nicknamePaper" style="font-size: 40px">{{ title }}</p>
+                    <a class="backArrow" href="{% url 'post:index' %}">
+                        <img src="{% static 'image/backButton.png'%}">
+                    </a>
+                </div>
+            </div>
+            <div class="theList">
+                <div class="listContainer">
+                    <!-- listContent를 백에서 받아와야 합니다.(제목 / 날짜) 일단 하드코딩으로 임의의 데이터를 추가하였습니다. -->
+                {% if comments%}
+                {% for comment in comments %}
+                    <div class="listContent">
+                        <div class="circle">
+                            <span></span>
+                        </div>
+                        <div class="titleDate">
+                            <div class="title" style="width: 100%">
+                                <span id="listTitle"style="width: 100%; padding-top: 55px">
+                                        <a href="{% url 'post:comments_detail' post_id comment.id%}">
+                                        <p style="text-align: center; font-size: 20px">아이디 : {{ comment.comment_writer }}</p>
+                                    </a>
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="3">글이 없습니다.</td>
+                </tr>
+                {% endif %}
+                </div>
+                <div class="plusDelete" style="width: 100%">
+                    <div class="plus" style="width: 100%">
+                        <a href="{% url 'post:comments_input' post_id %}" style="margin: 0 auto">
+                            <button  style="text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 500;
+    height: 50px;
+    background: #61c188;
+    color: #fff;
+    padding: 10px 30px;
+    text-align: center;
+    border-radius: 30px;
+    cursor: pointer;
+border: white;
+float :right;
+margin-top:20px">댓글달기</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+<script src="{% static 'js/mypage.js'%}"></script>

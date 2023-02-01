@@ -1,88 +1,91 @@
 {% extends 'base.html' %}
-내가 쓴 글<br>
-{% block content %}
-  <div class="container my-3">
-    <table class="table">
-        <thead>
-        <tr class="text-center thead-dark">
-            <th>주제</th>
-            <th style="width:50%">제목</th>
-            <th>글쓴이</th>
-            <th>작성일시</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% if posts%}
-        {% for post in posts %}
-        <tr class="text-center">
-            <td>
-                <span class="badge bg-light px-2 py-1" style="color: rgb(204, 204, 204);">
-                    {{ post.post_name }}
-                </span>
-            </td>
-            <td class="text-left">
-                <a href="{% url 'post:post_detail' post.id %}">
-                    {{ post.title }}
-                </a>
-            </td>
-            <td>{{ post.writer }}</td>
-            {% if post.update_dttm %}
-                <td>{{ post.update_dttm }}</td>
-            {% else %}
-                <td>{{ post.write_dttm }}</td>
-            {% endif %}
-        </tr>
-        {% endfor %}
-        {% else %}
-        <tr>
-            <td colspan="3">글이 없습니다.</td>
-        </tr>
-        {% endif %}
-        </tbody>
-    </table>
-    <ul class="pagination justify-content-center">
-        {% if post_list.has_previous %}
-        <li class="page-item">
-            <a href="?page={{page_obj.previous_page_number}}"
-              class="page-link">
-                &lt;
-            </a>
-        </li>
-        {% else %}
-        <li class="page-item disabled">
-            <a href="#" class="page-link" tabindex="-1" aria-disabled="true">
-                &lt;
-            </a>
-        </li>
-        {% endif %}
-        {% for page_number in page_obj.paginator.page_range %}
-        {% if page_number >= page_obj.number|add:-5 and page_number <= page_obj.number|add:5 %}
-            {% if page_number == page_obj.number %}
-            <li class="page-item active" aria-current="page">
-                <a href="?page={{page_number}}" class="page-link">
-                    {{page_number}}
-                </a>
-            </li>
-            {% else %}
-            <li class="page-item">
-                <a href="?page={{page_number}}" class="page-link">
-                    {{page_number}}
-                </a>
-            </li>
-            {% endif %}
-        {% endif %}
-        {% endfor %}
-        {% if page_obj.has_next %}
-        <li class="page-item">
-            <a href="?page={{page_obj.next_page_number}}"
-              class="page-link">
-                &gt;
-            </a>
-        </li>
-        {% endif %}
-    </ul>
-    <a href="{% url 'post:post_write' %}" class="btn btn-primary">
-        작성하기
-    </a>
-  </div>
+{% load static %}
+{% block css %}
+    <link rel = "stylesheet" href = "{% static 'css/mypage.css' %}">
 {% endblock %}
+{% block content %}
+    <div class="container">
+        <!-- header -->
+        <div class="header">
+            <div class="logo">
+                <!-- 클릭 시 첫 화면으로 돌아갑니다. -->
+                <a href="{% url 'post:index' %} ">Rolling Paper</a>
+            </div>
+            <div class="logInOut">
+                <a class="logout" href="{% url 'account_logout' %}">로그아웃</a>
+            </div>
+        </div>
+        <!-- content -->
+        <div class="myPaper">
+            <div class="myPaperHeader">
+                <div class="owner">
+                    <!-- 임시로 하드코딩하였습니다. 추후 백에서 데이터를 받아와야 하는 부분입니다. -->
+                    <p id="nicknamePaper">{{ user.username }}님의 롤링페이퍼</p>
+                </div>
+                <div class="back">
+                    <!-- 화살표 클릭시 메인페이지로 돌아갑니다.` -->
+                    <button onclick="history.back()" type="button" class="backArrow">
+                        <img src="../../static/image/backbutton.png">
+                    </button>
+                </div>
+            </div>
+            <div class="theList">
+                <div class="listContainer">
+                    <!-- listContent를 백에서 받아와야 합니다.(제목 / 날짜) 일단 하드코딩으로 임의의 데이터를 추가하였습니다. -->
+                {% if posts%}
+                {% for post in posts %}
+                    <div class="listContent">
+                        <div class="circle">
+                            <span></span>
+                        </div>
+                        <div class="titleDate">
+                            <div class="title">
+                                <span id="listTitle">
+                                        <a href="{% url 'post:post_detail' post.id %}">
+                                        {{ post.title }}
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="date">
+                                <span id="listDate">
+                                    {% if post.update_dttm %}
+                                        <td>{{ post.update_dttm }}</td>
+                                    {% else %}
+                                        <td>{{ post.write_dttm }}</td>
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="3">글이 없습니다.</td>
+                </tr>
+                {% endif %}
+                </div>
+                <div class="plusDelete" style="width: 100%">
+                    <div class="plus" style="width: 100%">
+                        <a href="{% url 'post:post_write' %}" style="margin: 0 auto">
+                            <button  style="text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 500;
+    height: 50px;
+    background: #61c188;
+    color: #fff;
+    padding: 10px 30px;
+    text-align: center;
+    border-radius: 30px;
+    cursor: pointer;
+border: white;
+float :right;
+margin-top:20px">글 작성하기</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+<script src="{% static 'js/mypage.js'%}"></script>

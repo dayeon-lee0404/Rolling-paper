@@ -1,14 +1,80 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel = "stylesheet" href = "{% static '/css/first.css' %}">
+{% endblock %}
+
 {% block content %}
-<div class="mx-3 my-3">
-  <h1>인덱스 페이지입니다.</h1>
 {% if user.is_authenticated %}
-        <a href="{% url 'account_logout' %}">로그아웃</a>
-        <a href="{% url 'post:post_list' %}">롤링페이퍼 보기</a>
-        <a href="{% url 'post:mypage' %}">마이페이지 보기</a>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <a href='post:index'>Rolling Paper</a>
+            </div>
+            <div class="buttons">
+                <a class="login" href="{% url 'account_logout' %}">로그아웃</a>
+            </div>
+        </div>
+        <!-- content -->
+        <div class = "content">
+            <div class="backgroundbox">
+                <div class="buttons">
+                            <a class="signup" href="{% url 'post:post_search' %}" style="text-decoration: none;
+    display: block;
+    font-size: 20px;
+    font-weight: 500;
+    width: 600px;
+    height: 50px;
+    background: #c196ea;
+    color: #fff;
+    padding: 10px 30px;
+    margin : 0 auto;
+    text-align: center;
+    border-radius: 30px;
+    cursor: pointer;">친구의 롤링페이퍼 찾아보기</a><br>
+                        <a class="signup" href="{% url 'post:mypage' %}"style="text-decoration: none;
+    display: block;
+    font-size: 20px;
+    font-weight: 500;
+    width: 600px;
+    height: 50px;
+    background: #c196ea;
+    color: #fff;
+    padding: 10px 30px;
+    margin : 0 auto;
+    text-align: center;
+    border-radius: 30px;
+    cursor: pointer;">내 롤링페이퍼 보기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     {% else %}
-        <a href="{% url 'account_login' %}">로그인</a>
-        <a href="{% url 'account_signup' %}">회원가입</a>
+    <div class="container">
+        <!--header-->
+        <div class="header">
+            <div class="logo">
+                <a href='post:index'>Rolling Paper</a>
+            </div>
+            <div class="buttons">
+                <a class="login" href='{% url 'account_login' %}'>로그인</a>
+                <a class="signup" href='{% url 'account_signup' %}'>회원가입</a>
+            </div>
+        </div>
+        <!-- content -->
+        <div class = "content">
+            <div class="backgroundbox">
+                <div class="maintext">
+                    <span id="main">돌려 쓰는 짧은 편지</span>
+                </div>
+                <div class="subtext">
+                    <span id="sub">종이 한 장 고이 접어 누군가에게 하고 싶은 말을 전해 보세요!</span>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endif %}
-</div>
+
 {% endblock %}

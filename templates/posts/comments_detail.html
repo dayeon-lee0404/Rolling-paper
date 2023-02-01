@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <link rel = "stylesheet" href = "{% static 'css/comment.css' %}">
+{% endblock %}
+{% block content %}
+<div class="container">
+    <!-- header -->
+    <div class="header">
+        <div class="logo">
+            <a href="{% url 'post:index' %}">Rolling Paper</a>
+        </div>
+        <div class="buttons">
+            <!-- 클릭 시 첫번째 화면으로 이동해야 합니다. -->
+            <a class="logout" href="{% url 'account_logout' %}">로그아웃</a>
+        </div>
+    </div>
+    <!-- content -->
+    <div class="content">
+        <div class="titleHeader">
+            <!-- 임시로 하드코딩하였습니다. 추후 백에서 데이터를 받아와야 하는 부분입니다. -->
+            <div class="titlebox">
+                <a onclick="history.back()" class="title">{{ comment.post_id.title }}</a>
+            </div>
+            <div class="back">
+                <!-- 화살표 클릭시 바로 전 페이지로 돌아가도록 수정해야합니다 -->
+                <button onclick="history.back()" type="button" class="backArrow" style="width:50px">
+                        <img style="width:100%" src="../../image/backbutton.png">
+                </button>
+            </div>
+        </div>
+
+        <div class="commentdetail"style="">
+            <div class="subheader" >
+            <!-- 추후 백에서 닉네임 데이터를 받아와야 하는 부분입니다.-->
+            <p id="WhoIsHe">{{ comment.comment_writer }}님의 댓글입니다.</p>
+        </div>
+            <div class="commentword">
+                <!--글을 클릭하면 이전 페이지, 댓글들 목록 페이지로 이동합니다-->
+                <p class="comment" style="font-size: 25px">{{ comment.content}}</p>
+            </div>
+            {% if user == comment.comment_writer %}
+        <form action="{% url 'post:comments_delete' comment.id %}" method="POST" class="d-inline">
+          {% csrf_token %}
+          <input type="submit" value="DELETE"   style="text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 500;
+    width: 100%;
+    height: 50px;
+    background: #ee99a5;
+    color: #fff;
+    padding: 10px 30px;
+    text-align: center;
+    border-radius: 30px;
+    cursor: pointer;
+border: white;
+margin-top:20px">
+        </form>
+      {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

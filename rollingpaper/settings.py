@@ -26,7 +26,11 @@ SECRET_KEY = 'django-insecure-#m*$*r+*1(bp&h&xejvwbuhv(8-f2*x5%fla=6&iwmm-qnh4cs
 DEBUG = True
 
 ALLOWED_HOSTS = []
+# 로그인 성공후 이동하는 URL
+LOGIN_REDIRECT_URL = '/'
 
+# 로그아웃시 이동하는 URL
+LOGOUT_REDIRECT_URL = '/'
 
 # Application definition
 

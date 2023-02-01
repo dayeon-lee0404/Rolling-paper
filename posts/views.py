@@ -51,9 +51,18 @@ def comments_view(request, post_id):
         return redirect(f'/post_detail/{post_id}/')
     if request.user.is_authenticated:
         comments = Comment.objects.filter(post_id=post_id)
-        context = {'comments': comments}
+        post = get_object_or_404(Post, id = post_id)
+        title = post.title
+        context = {'comments': comments, 'post_id': post_id, 'title' : title}
         response = render(request, 'posts/comments.html', context)
         return response
+
+
+def comments_detail(request, post_id, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    context = {'comment': comment}
+    response = render(request, 'posts/comments_detail.html', context)
+    return response
 
 
 class post_list(ListView):
@@ -65,14 +74,30 @@ class post_list(ListView):
 def post_detail(request, id):
     post = get_object_or_404(Post, id=id)
     comments = Comment.objects.filter(post_id=id)
-    #dday가 되었는지 판단
+    # dday가 되었는지 판단
     dday = str(post.dday_ddmt)[:10]
     write_ddmt = str(post.write_dttm)[:10]
     is_dday = dday <= write_ddmt
     print(is_dday, dday, write_ddmt)
-    context = {'post': post, 'comments': comments, 'is_dday': is_dday, 'dday' : dday}
+    context = {'post': post, 'comments': comments, 'is_dday': is_dday, 'dday': dday}
     response = render(request, 'posts/post_detail.html', context)
     return response
+
+
+@login_message_required
+def post_search(request):
+    if request.method == 'POST':
+        writer = str(request.POST['writer'])
+        if writer == "":
+            posts = {}
+        elif writer != "" or get_object_or_404(User, username=writer) is not None:
+            user = get_object_or_404(User, username=writer)
+            posts = Post.objects.filter(writer=user)
+        context = {'posts': posts, 'writer' : writer}
+        response = render(request, 'posts/post_list.html', context)
+        return response
+    else:
+        return render(request, 'posts/post_search.html')
 
 
 def comments_input(request, id):
@@ -81,11 +106,12 @@ def comments_input(request, id):
     response = render(request, 'posts/create_comment.html', context)
     return response
 
+
 @login_message_required
 def post_write(request):
     if request.method == 'GET':
         write_form = PostWriteForm()
-        context = {'forms': write_form}
+        context = {'forms': write_form, 'user': request.user}
         return render(request, 'posts/post_write.html', context)
 
     elif request.method == 'POST':
@@ -151,7 +177,7 @@ def mypage(request):
     if request.user.is_authenticated:
         user = request.user
         posts = Post.objects.filter(writer=user)
-        context = {'posts': posts}
+        context = {'posts': posts, 'user': user}
         return render(request, 'posts/mypage.html', context)
     return redirect('/login')
 
