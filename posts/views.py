@@ -127,7 +127,7 @@ def post_write(request):
                 dday_ddmt=dday_ddmt,
             )
             post.save()
-            return redirect('/list')
+            return redirect('/mypage')
         else:
             context = {'forms': write_form}
             if write_form.errors:
@@ -186,6 +186,6 @@ def post_delete(request, id):
     post = get_object_or_404(Post, id=id)
     if post.writer == request.user:
         post.delete()
-        return redirect('/list')
+        return redirect('/')
     else:
         return redirect(f'/post_detail/{id}/')
