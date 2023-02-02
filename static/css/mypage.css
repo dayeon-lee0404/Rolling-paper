@@ -9,14 +9,18 @@ body {
     background-image: url('/static/image/background.png');
     background-size: cover;
     background-position: center;
+    display: flex;
+    justify-content: center;
 }
 
 .container {
     position: relative;
     margin: 100px 300px;
     height: 760px;
+    width: calc(100% - 300px);
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
 .container .header {
@@ -58,6 +62,7 @@ body {
     background: #c16161;
     color: #fff;
     padding: 10px 30px;
+    margin: 0 10px 0 5px;
     text-align: center;
     border-radius: 30px;
     cursor: pointer;
@@ -94,6 +99,7 @@ body {
 .container .myPaper .myPaperHeader .owner p {
     font-size: 30px;
     letter-spacing: 1px;
+    margin: 0;
 }
 .container .myPaper .myPaperHeader .back {
     display: flex;
@@ -107,6 +113,8 @@ body {
     width: 50px;
     height: 50px;
     cursor: pointer;
+    border: transparent;
+    background-color: transparent;
 }
 .container .myPaper .myPaperHeader .back .backArrow img {
     width: 50px;
@@ -124,6 +132,7 @@ body {
     height: 400px;
     background-color: #ffe9ed;
     overflow-y: auto;
+    font-size: 20px;
 }
 .listContainer::-webkit-scrollbar {
     width: 10px;
@@ -190,7 +199,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100px;
+    width: 100%;
     height: 100%;
 }
 .theList .plusDelete .plus .contentPlus,
@@ -199,7 +208,7 @@ body {
     display: inline-block;
     font-size: 20px;
     font-weight: 500;
-    width: 150px;
+    width: 200px;
     height: 50px;
     background: #61c188;
     color: #fff;
@@ -207,6 +216,7 @@ body {
     text-align: center;
     border-radius: 30px;
     cursor: pointer;
+    border: #fff;
 }
 .theList .plusDelete .plus .contentPlus:hover {
     background: #3f915f;
