@@ -13,7 +13,7 @@
             </div>
             <div class="logInOut">
                 <!-- 클릭 시 첫번째 화면으로 이동해야 합니다. -->
-                <a class="logout" href="">로그아웃</a>
+                <a class="logout" href="{% url 'account_logout' %}" href="">로그아웃</a>
             </div>
         </div>
         <!-- content -->
@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="theList">
-                <div class="listContainer">
+                <div class="listContainer" style="margin: 63px 20px;">
                     <!-- listContent를 백에서 받아와야 합니다.(제목 / 날짜) 일단 하드코딩으로 임의의 데이터를 추가하였습니다. -->
                 {% if posts%}
                 {% for post in posts %}
@@ -60,27 +60,16 @@
                     </div>
                 {% endfor %}
                 {% else %}
-                    <p style="text-align: center; font-size: 30px; font-weight: bold; margin-top: 150px">글이 없습니다.</p>
+                <p style="
+                    position: absolute;
+                    font-size: 20px;
+                    top: 60%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    margin: 0;
+                ">글이 없습니다.</p>
                 {% endif %}
                 </div>
-                    <div class="plus">
-                        <a href="{% url 'post:post_write' %}"><button style="text-decoration: none;
-    display: inline-block;
-    font-size: 20px;
-    font-weight: 500;
-    width: 80%;
-    height: 50px;
-    background: #61c188;
-    color: #fff;
-    padding: 10px 30px;
-    text-align: center;
-    border-radius: 30px;
-    cursor: pointer;
-border: white;
-margin-left:10%;
-margin-right:10%;
-margin-top:20px;">추가</button></a>
-                    </div>
             </div>
         </div>
     </div>

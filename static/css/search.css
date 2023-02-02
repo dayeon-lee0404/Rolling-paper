@@ -170,6 +170,7 @@ body {
     background-color: rgb(247, 223, 243);
     font-size: 25px;
     outline: none;
+    text-align: center;
 }
 .container .content .searchbox .comment{
     width: 10%;

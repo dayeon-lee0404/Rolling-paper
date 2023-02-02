@@ -201,6 +201,7 @@ body{
 .info .passwordbox .pw input {
     height: 30px;
     width: 250px;
+    font-size: 25px;
 }
 .container .content .backgroundbox .info .passwordbox {
     display: flex;
@@ -239,6 +240,7 @@ body{
 }
 .info p input {
     width: 250px;
+    font-size: 25px;
 }
 .container .content .backgroundbox .info .button {
     display: flex;
