@@ -71,6 +71,10 @@ body{
     border-radius: 30px;
     cursor: pointer;
 }
+.buttons .login:hover,
+.buttons .logout:hover {
+    background: #803838;
+}
 .buttons .signup,
 .buttons .logout {
     float: right;
@@ -88,8 +92,31 @@ body{
     border-radius: 30px;
     cursor: pointer;
 }
+.buttons .signup:hover {
+    background: #2e6bc7;
+}
 .buttons .logout {
     background: #c16161;
+}
+.buttons .lookforfriend,
+.buttons .lookformine {
+    text-decoration: none;
+    display: block;
+    font-size: 20px;
+    font-weight: 500;
+    width: 600px;
+    height: 50px;
+    background: #c196ea;
+    color: #fff;
+    padding: 10px 30px;
+    margin : 0 auto;
+    text-align: center;
+    border-radius: 30px;
+    cursor: pointer;
+}
+.buttons .lookforfriend:hover,
+.buttons .lookformine:hover {
+    background: #9a47e9;
 }
 .container .content {
     width: 100%;
