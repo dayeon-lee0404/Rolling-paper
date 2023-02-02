@@ -10,19 +10,22 @@ body{
     background-image: url("../../static/image/background.png");
     background-size: cover;
     background-position: center;
+    display: flex;
+    justify-content: center;
 }
 .container {
     position: relative;
-    margin: 0px 300px;
+    margin: 100px 300px;
     height: 760px;
+    width: calc(100% - 300px);
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 .container .header {
     width: 100%;
-    height: 300px;
+    height: 100px;
     display: flex;
-    flex-wrap: nowrap;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
@@ -45,10 +48,15 @@ body{
     cursor: pointer;
 }
 .container .header .buttons {
-    width: 40%;
+    width: 50%;
+    height: 100px;
+    padding: 25px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
 }
 .container .header .buttons .login {
-    float: left;
+    float: right;
     text-decoration: none;
     display: block;
     font-size: 20px;
@@ -58,10 +66,13 @@ body{
     background: #c16161;
     color: #fff;
     padding: 10px 30px;
+    margin: 0 5px 0 10px;
     text-align: center;
     border-radius: 30px;
     cursor: pointer;
-}.buttons   .signup {
+}
+.buttons .signup,
+.buttons .logout {
     float: right;
     text-decoration: none;
     display: block;
@@ -72,13 +83,18 @@ body{
     background: #6188C1;
     color: #fff;
     padding: 10px 30px;
+    margin: 0 10px 0 5px;
     text-align: center;
     border-radius: 30px;
     cursor: pointer;
 }
+.buttons .logout {
+    background: #c16161;
+}
 .container .content {
     width: 100%;
     height: calc(100% - 200px);
+    padding: 50px 0;
 }
 
 .container .content .backgroundbox {
@@ -88,7 +104,6 @@ body{
     align-items: center;
     width: 100%;
     height: 460px;
-    margin-bottom: 20px;
     background: rgba(255, 255, 255, 0.5);
     border: 2px solid rgba(255, 255, 255, 0.8);
     border-radius: 15px;
@@ -96,7 +111,7 @@ body{
 }
 .container .content .backgroundbox .maintext {
     width: 100%;
-    height: 250px;
+    height: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -106,7 +121,6 @@ body{
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
     font-size: 45px;
     font-weight: 700;
     text-decoration: none;
@@ -115,7 +129,7 @@ body{
 
 .container .content .backgroundbox .subtext {
     width: 100%;
-    height: 200px;
+    height: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -124,7 +138,6 @@ body{
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-bottom: 40px;
     font-size: 30px;
     font-weight: 500;
     text-decoration: none;

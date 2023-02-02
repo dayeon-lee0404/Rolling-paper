@@ -24,10 +24,16 @@
                 <form action="" method = "POST">
                     {% csrf_token %}
                     <div class="loginbox">
-                        <p> 아이디 : <input name="login" type="text" ></p>
+                        <div class="id">
+                            <p> 아이디 : </p>
+                            <input name="login" type="text" >
+                        </div>
                     </div>
                     <div class="passwordbox">
-                        <p>비밀번호 : <input name="password" type="password"></p>
+                        <div class="pw">
+                            <p>비밀번호 : </p>
+                            <input name="password" type="password">
+                        </div>
                     </div>
                     <div class="button">
                         <input class="login" type="submit" value="로그인">
