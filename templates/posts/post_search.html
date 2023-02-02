@@ -16,25 +16,24 @@
     </div>
     <!-- content -->
     <div class="content">
-        <div class="titleHeader">
-            <!-- 임시로 하드코딩하였습니다. 추후 백에서 데이터를 받아와야 하는 부분입니다. -->
-            <div class="titlebox">
-                <p class="title">친구의 아이디를 입력하세요.</p>
-            </div>
-            <div class="back">
-                <!-- 화살표 클릭시 바로 전 페이지로 돌아가도록 수정해야합니다 -->
-                <a class="backArrow" href="./mainpage.html">
-                    <img src="../../static/image/backbutton.png">
-                </a>
-            </div>
-        </div>
-        <div class="searchbox">
-            <div class="boxdetail">
+        <div class="backgroundbox">
+            <!-- 화살표 클릭시 바로 전 페이지로 돌아가도록 수정해야합니다 -->
+            <a class="backArrow" href="{% url 'post:index' %}">
+                <img src="../../static/image/backbutton.png">
+            </a>
+            <div class="searchbox">
                 <!--글을 클릭하면 이전 페이지, 댓글들 목록 페이지로 이동합니다-->
+                <div class="titlebox">
+                    <p class="title">친구의 아이디를 입력하세요.</p>
+                </div>
                 <form action="{% url 'post:post_search' %}" method="POST">
                     {% csrf_token %}
-                    <input class="search" type="text" name="writer" style="text-align: center; margin-bottom: 20px">
-                    <input type="submit" value="검색" class="button">
+                    <div class="searchInput">
+                        <input class="search" type="text" name="writer">
+                    </div>
+                    <div class="find">
+                        <input type="submit" value="검색" class="searchButton">
+                    </div>
                 </form>
             </div>
         </div>

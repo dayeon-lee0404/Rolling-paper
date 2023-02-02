@@ -27,7 +27,6 @@ body{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    margin-top:-10px;
     align-items: center;
 }
 .container .header .logo {
@@ -95,7 +94,7 @@ body{
 }
 .container .header .buttons .signup:hover,
 #signup:hover {
-    background: #2e6bc7 !important;
+    background: #2e6bc7;
 }
 .container .header .buttons .login {
     float: right;
@@ -115,7 +114,7 @@ body{
 }
 .header .buttons .login:hover,
 .info .login:hover {
-    background: #803838 !important;
+    background: #803838;
 }
 .container .content {
     width: 100%;

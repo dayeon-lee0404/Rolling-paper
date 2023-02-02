@@ -10,9 +10,10 @@ body {
     background-image: url("../../static/image/background.png");
     background-size: cover;
     background-position: center;
-
+    display: flex;
+    justify-content: center;
 }
-.button {
+.searchButton {
     text-align: center;
     text-decoration: none;
     display: block;
@@ -29,12 +30,17 @@ body {
     cursor: pointer;
     margin : 0 auto
 }
+.searchButton:hover {
+    background: #2e6bc7;
+}
 .container {
     position: relative;
-    margin: 50px 300px;
+    margin: 100px 300px;
     height: 760px;
+    width: calc(100% - 300px);
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
 .container .header {
@@ -76,6 +82,7 @@ body {
     background: #c16161;
     color: #fff;
     padding: 10px 30px;
+    margin: 0 10px 0 5px;
     text-align: center;
     border-radius: 30px;
     cursor: pointer;
@@ -85,46 +92,34 @@ body {
 }
 
 .container .content {
-    width: 100%;
-    height: calc(100% - 100px);
-}
-.container .content .titleHeader {
-    width: 100%;
-    height: 100px;
     display: flex;
-    justify-content: start;
-    align-items: center;
-}
-.container .content .titleHeader .titlebox{
-    display: flex;
+    flex-direction: column;
     justify-content: center;
-    margin-left: 100px;
-    margin-top: 20px;
     align-items: center;
-    width: 80%;
-    height: 100px;
+    width: 100%;
+    height: calc(100% - 200px);
+    padding: 50px 0;
 }
-.container .content .titleHeader .title{
-    font-size: 25px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    color:rgb(4, 5, 11);
-}
-.container .content .titleHeader .back {
+.container .content .backgroundbox {
     display: flex;
-    justify-content: left;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    width: 20%;
-    height: 100px;
+    width: 100%;
+    height: 460px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 2px solid rgba(255, 255, 255, 1);
+    border-radius: 15px;
 }
-.container .content .titleHeader .back .backArrow {
-    margin-left: auto;
-    margin-right: 10px;
+.container .content .backArrow {
+    position: absolute;
+    top: 210px;
+    right: 20px;
     width: 50px;
     height: 50px;
     cursor: pointer;
 }
-.container .content .titleHeader .back .backArrow img {
+.container .content .backArrow img {
     width: 50px;
     height: 50px;
 }
@@ -133,30 +128,50 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     margin : 0 auto;
     width: 100%;
-    height: 400px;
-    background-color: rgba(255, 255, 255, 0.5);
-    border: 2px solid rgba(255, 255, 255, 1);
-    border-radius: 15px;
 }
-.container .content .searchbox .boxdetail {
-
+.searchbox .titlebox{
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: auto;
+    height: 50px;
 }
-.container .content .searchbox .boxdetail .search {
+.searchbox .titlebox .title{
+    display: flex;
+    margin: 0;
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color:rgb(4, 5, 11);
+}
+.searchbox form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 150px;
+}
+.container .content .searchbox .searchInput,
+.container .content .searchbox .find {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+}
+.container .content .searchbox .search {
     width: 500px;
     height: 40px;
     border-radius: 30px;
     background-color: rgb(247, 223, 243);
-    margin-right: 30px;
+    font-size: 25px;
     outline: none;
 }
-.container .content .searchbox .boxdetail .comment{
+.container .content .searchbox .comment{
     width: 10%;
     height: 40px;
     display: flex;
@@ -168,13 +183,13 @@ body {
     background-color: #c16161;
     border-radius: 30px;
 }
-.container .content .searchbox .boxdetail .comment a{
+.container .content .searchbox .comment a{
     font-size: 20px;
     text-decoration: none;
     margin-top: 8px;
     color: aliceblue;
 }
 
-.container .content .searchbox .boxdetail .comment a:hover{
+.container .content .searchbox .comment a:hover{
     color: gray;
 }
