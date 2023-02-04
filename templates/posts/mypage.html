@@ -41,7 +41,7 @@
                         <div class="titleDate">
                             <div class="title">
                                 <span id="listTitle">
-                                        <a href="{% url 'post:post_detail' post.id %}">
+                                    <a href="{% url 'post:post_detail' post.id %}">
                                         {{ post.title }}
                                     </a>
                                 </span>
@@ -70,7 +70,7 @@
                 </div>
                 <div class="plusDelete">
                     <div class="plus">
-                        <a href="{% url 'post:post_write' %}" style="margin: 0 auto">
+                        <a href="{% url 'post:post_write' %}">
                             <button class="contentPlus">글 작성하기</button>
                         </a>
                     </div>

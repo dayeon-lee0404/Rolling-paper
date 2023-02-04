@@ -20,13 +20,11 @@
         <div class="myPaper">
             <div class="myPaperHeader">
                 <div class="owner">
-                    <!-- 임시로 하드코딩하였습니다. 추후 백에서 데이터를 받아와야 하는 부분입니다. -->
+                    <p id="nicknamePaper">{{ title }}</p>
                 </div>
                 <div class="back">
                     <!-- 화살표 클릭시 메인페이지로 돌아갑니다.` -->
-
-                    <p id="nicknamePaper" style="font-size: 40px">{{ title }}</p>
-                    <a class="backArrow" href="{% url 'post:index' %}">
+                    <a class="backArrow" onclick="history.back()">
                         <img src="{% static 'image/backButton.png'%}">
                     </a>
                 </div>
@@ -41,40 +39,30 @@
                             <span></span>
                         </div>
                         <div class="titleDate">
-                            <div class="title" style="width: 100%">
-                                <span id="listTitle"style="width: 100%; padding-top: 55px">
-                                        <a href="{% url 'post:comments_detail' post_id comment.id%}">
-                                        <p style="text-align: center; font-size: 20px">아이디 : {{ comment.comment_writer }}</p>
+                            <div class="title" style="height: 100%;">
+                                <span id="listTitle">
+                                    <a href="{% url 'post:comments_detail' post_id comment.id%}">
+                                        <p>아이디 : {{ comment.comment_writer }}</p>
                                     </a>
                                 </span>
                             </div>
-
                         </div>
                     </div>
                 {% endfor %}
                 {% else %}
-                <tr>
-                    <td colspan="3">글이 없습니다.</td>
-                </tr>
+                <p style="
+                    position: absolute;
+                    font-size: 20px;
+                    top: 55%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                ">글이 없습니다.</p>
                 {% endif %}
                 </div>
-                <div class="plusDelete" style="width: 100%">
-                    <div class="plus" style="width: 100%">
-                        <a href="{% url 'post:comments_input' post_id %}" style="margin: 0 auto">
-                            <button  style="text-decoration: none;
-    display: inline-block;
-    font-size: 20px;
-    font-weight: 500;
-    height: 50px;
-    background: #61c188;
-    color: #fff;
-    padding: 10px 30px;
-    text-align: center;
-    border-radius: 30px;
-    cursor: pointer;
-border: white;
-float :right;
-margin-top:20px">댓글달기</button>
+                <div class="plusDelete">
+                    <div class="plus">
+                        <a href="{% url 'post:comments_input' post_id %}">
+                            <button class="contentPlus">댓글달기</button>
                         </a>
                     </div>
                 </div>
