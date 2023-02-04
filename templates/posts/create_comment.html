@@ -4,12 +4,12 @@
 <link rel = "stylesheet" href = "{% static '/css/commentplus.css' %}">
 {% endblock %}
 {% block content %}
-    <title>댓글 추가</title>
+<title>댓글 추가</title>
 <div class="container">
     <!-- header -->
     <div class="header">
         <div class="logo">
-            <a href="mainpage.html">Rolling Paper</a>
+            <a href="{% url 'post:index' %}">Rolling Paper</a>
         </div>
         <div class="logInOut">
             <!-- 클릭 시 첫번째 화면으로 이동해야 합니다. -->
@@ -32,24 +32,23 @@
             </div>
         </div>
         <div class="plus">
-            <div class="plusContainer"style = "padding-top : 20px">
+            <div class="plusContainer">
                 <div class="plusHeader">
                     <p>댓글 작성하기</p>
                 </div>
-            <form action="{% url 'post:comments_create' post.id %}" method="POST" class="my-3">
+                <form action="{% url 'post:comments_create' post.id %}" method="POST" class="addComment">
                 {% csrf_token %}
-                <!-- 백으로 보내야하는 내용: 임시로 작성만 하였습니다. -->
                     <div id="plusContent">
                         <div id="paperContent">
                             <div class="content">내용</div>
                             <textarea name="content" id="content">태어나줘서 고마워, 너의 생일을 축하해!</textarea>
                         </div>
                     </div>
-                </div>
-                <div class="plusButton">
-                    <input type="submit" class="addContent" value="등록하기">
-                </div>
-               </form>
+                    <div class="plusButton">
+                        <input type="submit" class="addContent" value="등록하기">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

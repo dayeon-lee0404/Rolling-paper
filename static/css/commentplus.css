@@ -9,11 +9,13 @@ body {
     background-image: url("../../static/image/background.png");
     background-size: cover;
     background-position: center;
+    display: flex;
+    justify-content: center;
 }
 
 .container {
     position: relative;
-    margin: 30px 300px;
+    margin: 100px 300px;
     height: 760px;
     display: flex;
     flex-direction: column;
@@ -74,7 +76,6 @@ body {
     border-radius: 15px;
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
 }
 .container .contentPlus .myPaperHeader {
     display: flex;
@@ -87,15 +88,15 @@ body {
 .container .contentPlus .myPaperHeader .owner{
     display: flex;
     justify-content: flex-start;
-    margin: 10px;
+    margin-left: 10px;
     align-items: center;
-    width: 25%;
+    width: 50%;
     height: 100px;
 }
 .container .contentPlus .myPaperHeader .owner p {
     font-size: 30px;
     letter-spacing: 1px;
-    text-align: center;
+    margin: 0;
 }
 .container .contentPlus .myPaperHeader .back {
     display: flex;
@@ -109,6 +110,8 @@ body {
     width: 50px;
     height: 50px;
     cursor: pointer;
+    border: transparent;
+    background-color: transparent;
 }
 .container .contentPlus .myPaperHeader .back .backArrow img {
     width: 50px;
@@ -123,8 +126,9 @@ body {
 .container .contentPlus .plus .plusContainer {
     display: flex;
     flex-direction: column;
-    margin: 20px 20px 0 20px;
-    height: 75%;
+    margin: 20px;
+    padding: 10px;
+    height: calc(100% - 40px);
     background-color: #ffe9ed;
     border-radius: 15px;
 }
@@ -137,95 +141,63 @@ body {
 }
 .plus .plusContainer .plusHeader p {
     font-size: 30px;
-    margin-left: 20px;
+    margin: 0;
+    font-weight: 600;
 }
-.plus .plusContainer #plusContent {
+.plus .plusContainer .addComment {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     width: 100%;
     height: calc(100% - 50px);
 }
-
-.plus .plusContainer #plusContent #paperDate,
-.plus .plusContainer #plusContent #paperContent {
+.plus .plusContainer .addComment #plusContent {
     display: flex;
-    flex-direction: row;
-    justify-content: start;
+    flex-direction: column;
     align-items: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
     width: 100%;
-    height: 60px;
-    border-radius: 30px;
+    height: calc(100% - 100px);
+    margin-bottom: 20px;
 }
-.plus .plusContainer #plusContent #paperContent {
-    margin-top: 30px;
-
-}
-
-#paperDate .date {
+.addComment #plusContent #paperContent {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    margin: 10px;
-    font-size: 25px;
-    width: 150px;
-    height: 60px;
-    border: solid 1px;
-    background-color: #fff;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }
-#paperContent .content {
+#plusContent #paperContent .content {
     display: flex;
-    align-items: center;
     justify-content: center;
-    margin: 10px;
+    align-items: center;
     font-size: 30px;
-    width: 150px;
-    height: 100px;
-    border: solid 1px;
+    width: 100%;
+    height: 50px;
     background-color: #fff;
-    border-radius: 10px;
-    border: 2px solid rgba(255, 255, 255, 1);
-
+    border-radius: 15px;
+    margin-bottom: 5px;
 }
-
-#paperDate #date {
+#plusContent #paperContent #content {
     display: flex;
     justify-content: start;
     align-items: center;
-    margin-right: 10px;
-    padding-left: 10px;
-    border: solid 1px;
-    height: 60px;
-    width: calc(100% - 180px);
-    background-color: #fff;
-    font-size: 20px;
-}
-#paperContent #content {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    margin-right: 10px;
     padding: 10px;
-    border: solid 1px;
-    height: 100px;
-    width: calc(100% - 180px);
-    background-color: #fff;
+    width: 100%;
+    height: calc(100% - 50px);
+    border-radius: 15px;
     font-size: 20px;
-    border-radius: 10px;
-    border: 2px solid rgba(255, 255, 255, 1);
-}
-#paperContent #content {
     overflow-y: auto;
     resize: none;
-
+    border: none;
+    margin-top: 5px;
 }
 #content::-webkit-scrollbar {
     width: 10px;
 }
 #content::-webkit-scrollbar-thumb {
-    height: 5px;
+    height: 10px;
     background: rgba(255, 0, 0, 0.2);
     border-radius: 10px;
     background-clip: padding-box;
@@ -233,11 +205,10 @@ body {
 }
 .plus .plusButton {
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100px;
+    height: 50px;
 }
 .plus .plusButton .addContent {
     text-decoration: none;
@@ -252,7 +223,49 @@ body {
     text-align: center;
     border-radius: 30px;
     cursor: pointer;
+    border: transparent;
 }
-.addContent {
+.plusButton .addContent:hover {
     background: #3f915f;
 }
+
+
+
+/* .plus .plusContainer #plusContent #paperDate {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 60px;
+    border-radius: 30px;
+}
+
+#paperDate .date {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    font-size: 25px;
+    width: 150px;
+    height: 60px;
+    border: solid 1px;
+    background-color: #fff;
+}
+
+#paperDate #date {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-right: 10px;
+    padding-left: 10px;
+    border: solid 1px;
+    height: 60px;
+    width: calc(100% - 180px);
+    background-color: #fff;
+    font-size: 20px;
+}
+ */
+
