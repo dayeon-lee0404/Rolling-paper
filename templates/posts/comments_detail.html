@@ -24,40 +24,25 @@
             </div>
             <div class="back">
                 <!-- 화살표 클릭시 바로 전 페이지로 돌아가도록 수정해야합니다 -->
-                <button onclick="history.back()" type="button" class="backArrow" style="width:50px">
-                        <img style="width:100%" src="../../image/backbutton.png">
+                <button onclick="history.back()" type="button" class="backArrow">
+                        <img src="{% static 'image/backButton.png'%}">
                 </button>
             </div>
         </div>
 
-        <div class="commentdetail"style="">
+        <div class="commentdetail">
             <div class="subheader" >
-            <!-- 추후 백에서 닉네임 데이터를 받아와야 하는 부분입니다.-->
-            <p id="WhoIsHe">{{ comment.comment_writer }}님의 댓글입니다.</p>
-        </div>
+                <p id="WhoIsHe">{{ comment.comment_writer }}님의 댓글입니다.</p>
+            </div>
             <div class="commentword">
-                <!--글을 클릭하면 이전 페이지, 댓글들 목록 페이지로 이동합니다-->
                 <p class="comment" style="font-size: 25px">{{ comment.content}}</p>
             </div>
             {% if user == comment.comment_writer %}
-        <form action="{% url 'post:comments_delete' comment.id %}" method="POST" class="d-inline">
-          {% csrf_token %}
-          <input type="submit" value="DELETE"   style="text-decoration: none;
-    display: inline-block;
-    font-size: 20px;
-    font-weight: 500;
-    width: 100%;
-    height: 50px;
-    background: #ee99a5;
-    color: #fff;
-    padding: 10px 30px;
-    text-align: center;
-    border-radius: 30px;
-    cursor: pointer;
-border: white;
-margin-top:20px">
-        </form>
-      {% endif %}
+            <form action="{% url 'post:comments_delete' comment.id %}" method="POST" class="canDelete">
+            {% csrf_token %}
+                <input class="deleteButton" type="submit" value="댓글 삭제">
+            </form>
+            {% endif %}
         </div>
     </div>
 </div>

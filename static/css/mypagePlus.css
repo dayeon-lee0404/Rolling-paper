@@ -265,7 +265,7 @@ body {
     font-weight: 500;
     width: 200px;
     height: 50px;
-    background: #ee99a5;
+    background-color: #ee99a5;
     color: #fff;
     padding: 10px 30px;
     text-align: center;
@@ -274,7 +274,7 @@ body {
     border: white;
 }
 .modifyDelete a:hover {
-    background: #ec6577;
+    background-color: #ec6577;
 }
 .modify .modifyContainer .forComments {
     display: flex;
