@@ -35,15 +35,14 @@
                 {{ form|safe }}
             </div>
             {% endfor %}
+            <div class="submitDiv">
+                <input type="date" name="dday_ddmt">
+                {% if error %}
+                {{ error }}
+                {% endif %}
+                <button class="addContent" type="submit">등록하기</button>
+            </div>
         </form>
-        <div class="submitDiv">
-            <input type="date" name="dday_ddmt">
-            {% if error %}
-            {{ error }}
-            {% endif %}
-            <div class="blank"></div>
-            <button class="addContent" type="submit">등록하기</button>
-        </div>
     </div>
 </div>
 {% endblock content %}

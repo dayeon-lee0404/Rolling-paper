@@ -15,51 +15,22 @@
                 <a class="logout" href="{% url 'account_logout' %}">로그아웃</a>
             </div>
         </div>
- <!-- content -->
-        <div class="contentPlus" style="padding : 50px; font-size: 25px;">
+        <!-- content -->
+        <div class="contentPlus">
             <div class="myPaperHeader">
                 <div class="owner">
                     <!-- 임시로 하드코딩하였습니다. 추후 백에서 데이터를 받아와야 하는 부분입니다. -->
                     {{ post.writer.username }}님의 롤링페이퍼
-                    <button onclick="history.back()" type="button"  style="width:50px; float : right">
-                        <img style="width:50px;" src="../../static/image/backbutton.png">
+                </div>
+                <div class="back">
+                    <button class="backArrow" onclick="history.back()" type="button">
+                        <img src="../../static/image/backbutton.png">
                     </button>
                 </div>
             </div>
-            <div class="plus">
-                <div class="plusContainer" style="width : 1000px">
-                    <!-- 백으로 보내야하는 내용: 임시로 작성만 하였습니다. -->
-                    {% if post.writer == request.user %}
-                        <a href="/post_detail/{{ post.id }}/modify/"><button style="text-decoration: none;
-    display: inline-block;
-    font-size: 15px;
-    font-weight: 500;
-    width: 100px;
-    height: 50px;
-    background: #ee99a5;
-    color: #fff;
-    padding: 10px 30px;
-    text-align: center;
-    border-radius: 30px;
-    cursor: pointer;
-border: white;
-margin:20px;"> 수정</button></a>
-                        <a href="/post_detail/{{ post.id }}/delete/"><button style="text-decoration: none;
-    display: inline-block;
-    font-size: 15px;
-    font-weight: 500;
-    width: 100px;
-    height: 50px;
-    background: #ee99a5;
-    color: #fff;
-    padding: 10px 30px;
-    text-align: center;
-    border-radius: 30px;
-    cursor: pointer;
-border: white;
-margin:20px;">삭제</button></a>
-                    {% endif %}
-                    <div id="plusContent">
+            <div class="modify">
+                <div class="modifyContainer">
+                    <div id="modifyContent">
                         <div>
                             게시판 종류 : {{ post.post_name }}
                         </div>
@@ -70,68 +41,49 @@ margin:20px;">삭제</button></a>
                             기념일 : {{ dday }}
                         </div>
                         <div id="paperContent">
-                            {{ post.contents|safe }}
+                            내용 : {{ post.contents|safe }}
                         </div>
                     </div>
-                        <div style="text-align: center; margin-top: 50px">
-                            {% if is_dday is True %}
-                                 <form action="{% url 'post:comments_view' post.id %}" method="POST" >
-                                    {% csrf_token %}
-                                    <input type="submit" value="댓글 조회하기" style="text-decoration: none;
-    display: inline-block;
-    font-size: 20px;
-    font-weight: 500;
-    width: 20%;
-    height: 50px;
-    background: #61c188;
-    color: #fff;
-    padding: 10px 30px;
-    text-align: center;
-    border-radius: 30px;
-    cursor: pointer;
+                    <!-- 백으로 보내야하는 내용: 임시로 작성만 하였습니다. -->
+                    {% if post.writer == request.user %}
+                    <div class="modifyDelete">
+                        <a class="modifyButton" href="/post_detail/{{ post.id }}/modify/">수정하기</a>
+                        <a class="deleteButton" href="/post_detail/{{ post.id }}/delete/">삭제하기</a>
+                    </div>
+                    {% endif %}
+                    <div class="forComments">
+                        {% if is_dday is True %}
+                        <form action="{% url 'post:comments_view' post.id %}" method="POST" >
+                            {% csrf_token %}
+                            <input class="seeComments" type="submit" value="댓글 조회하기">
+                        </form>
+                        <form action="{% url 'post:comments_input' post.id %}" method="POST">
+                            {% csrf_token %}
+                            <input class="addComments" type="submit" value="댓글 달기">
+                        </form>
+                        {% else %}
+                    <!--create-->
+                        <form action="{% url 'post:comments_input' post.id %}" method="POST" class="my-3">
+                            {% csrf_token %}
+                            <input type="submit" value="댓글 달기" style="text-decoration: none;
+display: inline-block;
+font-size: 20px;
+font-weight: 500;
+width: 20%;
+height: 50px;
+background: #61c188;
+color: #fff;
+padding: 10px 30px;
+text-align: center;
+border-radius: 30px;
+cursor: pointer;
 border: white;
 margin-top:20px">
-                                 </form>
-                                 <form action="{% url 'post:comments_input' post.id %}" method="POST">
-                                    {% csrf_token %}
-                                    <input type="submit" value="댓글 달기" style="text-decoration: none;
-    display: inline-block;
-    font-size: 20px;
-    font-weight: 500;
-    width: 20%;
-    height: 50px;
-    background: #61c188;
-    color: #fff;
-    padding: 10px 30px;
-    text-align: center;
-    border-radius: 30px;
-    cursor: pointer;
-border: white;
-margin-top:20px">
-                                 </form>
-                                 {% else %}
-                                <!--create-->
-                                 <form action="{% url 'post:comments_input' post.id %}" method="POST" class="my-3">
-                                    {% csrf_token %}
-                                    <input type="submit" value="댓글 달기" style="text-decoration: none;
-    display: inline-block;
-    font-size: 20px;
-    font-weight: 500;
-    width: 20%;
-    height: 50px;
-    background: #61c188;
-    color: #fff;
-    padding: 10px 30px;
-    text-align: center;
-    border-radius: 30px;
-    cursor: pointer;
-border: white;
-margin-top:20px">
-                                     <br>
-                                    {{ comments|length }}개의 댓글이 있습니다. {{ dday }} 이후에 볼 수 있습니다.
-                                 </form>
-                                {% endif %}
-                        </div>
+                            <br>
+                            {{ comments|length }}개의 댓글이 있습니다. {{ dday }} 이후에 볼 수 있습니다.
+                        </form>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
