@@ -19,7 +19,7 @@
         <div class="backgroundbox">
             <!-- 화살표 클릭시 바로 전 페이지로 돌아가도록 수정해야합니다 -->
             <a class="backArrow" href="{% url 'post:index' %}">
-                <img src="../../static/image/backbutton.png">
+                <img src="{% static 'image/backButton.png'%}">
             </a>
             <div class="searchbox">
                 <!--글을 클릭하면 이전 페이지, 댓글들 목록 페이지로 이동합니다-->
