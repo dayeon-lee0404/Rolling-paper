@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel = "stylesheet" href = "{% static '/css/logout.css' %}">
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="textContainer">
+        <p class="text">사용해주셔서 감사합니다!!</p>
+        <p class="text">전하고 싶은 마음은 전달했나요??</p>
+        <p class="text">당신의 마음이 잘 전해지길 바랄게요~</p>
+    </div>
+    <form class="buttons" method="post" action="/logout/">
+        {% csrf_token %}
+        <div class="logout">
+            <button class="logoutButton" type="submit">로그아웃</button>
+        </div>
+        <div class="back">
+            <a class="backButton" onclick="history.back()">뒤로가기</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

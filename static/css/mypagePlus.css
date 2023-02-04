@@ -273,7 +273,8 @@ body {
     cursor: pointer;
     border: white;
 }
-.modifyDelete a:hover {
+.modify .modifyContainer .modifyDelete .modifyButton:hover,
+.modify .modifyContainer .modifyDelete .deleteButton:hover {
     background-color: #ec6577;
 }
 .modify .modifyContainer .forComments {

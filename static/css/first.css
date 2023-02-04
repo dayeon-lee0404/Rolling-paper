@@ -71,7 +71,7 @@ body{
     border-radius: 30px;
     cursor: pointer;
 }
-.buttons .login:hover,
+.container .header .buttons .login:hover,
 .buttons .logout:hover {
     background: #803838;
 }
