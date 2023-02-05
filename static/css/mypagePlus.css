@@ -237,7 +237,6 @@ body {
     height: calc(100% - 150px);
     flex-direction: column;
     align-items: start;
-    height: auto;
     overflow-y: auto;
 }
 #paperContent::-webkit-scrollbar {
