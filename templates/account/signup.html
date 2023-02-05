@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel = "stylesheet" href = "{% static '/css/login.css' %}">
+{% endblock %}
+{% block content %}
+<div class="container">
+    <!--header-->
+    <div class="header">
+        <div class="logo">
+            <a href={% url "post:index" %}>Rolling Paper</a>
+        </div>
+        <div class="buttons">
+            <a class="login" href={% url "account_login" %}>로그인</a>
+        </div>
+    </div>
+    <!-- content -->
+    <div class = "content">
+        <div class="backgroundbox">
+            <div class="logintext">
+                <p class="logintxt">회원가입</p>
+            </div>
+            <div class ="info">
+                <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                      {% if redirect_field_value %}
+                      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                      {% endif %}
+                      <div class="signupButton">
+                        <button type="submit" value="회원가입하기" id="signup"> 회원가입</button>
+                      </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

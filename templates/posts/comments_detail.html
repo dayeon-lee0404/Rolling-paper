@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <link rel = "stylesheet" href = "{% static 'css/comment.css' %}">
+{% endblock %}
+{% block content %}
+<div class="container">
+    <!-- header -->
+    <div class="header">
+        <div class="logo">
+            <a href="{% url 'post:index' %}">Rolling Paper</a>
+        </div>
+        <div class="buttons">
+            <!-- 클릭 시 첫번째 화면으로 이동해야 합니다. -->
+            <a class="logout" href="{% url 'account_logout' %}">로그아웃</a>
+        </div>
+    </div>
+    <!-- content -->
+    <div class="content">
+        <div class="titleHeader">
+            <!-- 임시로 하드코딩하였습니다. 추후 백에서 데이터를 받아와야 하는 부분입니다. -->
+            <div class="titlebox">
+                <a onclick="history.back()" class="title">{{ comment.post_id.title }}</a>
+            </div>
+            <div class="back">
+                <!-- 화살표 클릭시 바로 전 페이지로 돌아가도록 수정해야합니다 -->
+                <button onclick="history.back()" type="button" class="backArrow">
+                        <img src="../../../../static/image/backbutton.png">
+                </button>
+            </div>
+        </div>
+
+        <div class="commentdetail">
+            <div class="subheader" >
+                <p id="WhoIsHe">{{ comment.comment_writer }}님의 댓글입니다.</p>
+            </div>
+            <div class="commentword">
+                <p class="comment" style="font-size: 25px">{{ comment.content}}</p>
+            </div>
+            {% if user == comment.comment_writer %}
+            <form action="{% url 'post:comments_delete' comment.id %}" method="POST" class="canDelete">
+            {% csrf_token %}
+                <input class="deleteButton" type="submit" value="댓글 삭제">
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <link rel = "stylesheet" href = "{% static 'css/search.css' %}">
+{% endblock %}
+{% block content %}
+<div class="container">
+    <!-- header -->
+    <div class="header">
+        <div class="logo">
+            <a href="{% url 'post:index' %}">Rolling Paper</a>
+        </div>
+        <div class="buttons">
+            <a href="{% url 'account_logout' %}" class="logout">로그아웃</a>
+        </div>
+    </div>
+    <!-- content -->
+    <div class="content">
+        <div class="backgroundbox">
+            <!-- 화살표 클릭시 바로 전 페이지로 돌아가도록 수정해야합니다 -->
+            <a class="backArrow" href="{% url 'post:index' %}">
+                <img src="../../static/image/backbutton.png">
+            </a>
+            <div class="searchbox">
+                <!--글을 클릭하면 이전 페이지, 댓글들 목록 페이지로 이동합니다-->
+                <div class="titlebox">
+                    <p class="title">친구의 아이디를 입력하세요.</p>
+                </div>
+                <form action="{% url 'post:post_search' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="searchInput">
+                        <input class="search" type="text" name="writer">
+                    </div>
+                    <div class="find">
+                        <input type="submit" value="검색" class="searchButton">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

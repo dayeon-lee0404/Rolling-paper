@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Squada+One&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Squada One" ,sans-serif;
+}
+body {
+    background-image: url("../../static/image/background.png");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    position: relative;
+    margin: 100px 300px;
+    height: 760px;
+    display: flex;
+    flex-direction: column;
+}
+
+.container .header {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.container .header .logo {
+    width: 50%;
+    height: 100px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    letter-spacing: 0.1em;
+}
+.container .header .logo a {
+    width: 100%;
+    font-size: 70px;
+    text-decoration: none;
+    color: #000;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.container .header .logInOut {
+    width: 50%;
+}
+.container .header .logInOut .logout {
+    float: right;
+    text-decoration: none;
+    display: block;
+    font-size: 20px;
+    font-weight: 500;
+    width: 150px;
+    height: 50px;
+    background: #c16161;
+    color: #fff;
+    padding: 10px 30px;
+    text-align: center;
+    border-radius: 30px;
+    cursor: pointer;
+}
+.container .header .logInOut .logout:hover {
+    background: #853535;
+}
+
+.container .contentPlus {
+    width: 100%;
+    height: calc(100% - 100px);
+    background-color:rgba(255, 255, 255, 0.5) ;
+    border: 2px solid rgba(255, 255, 255, 1);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+}
+.container .contentPlus .myPaperHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+}
+.container .contentPlus .myPaperHeader .owner{
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 10px;
+    align-items: center;
+    width: 50%;
+    height: 100px;
+}
+.container .contentPlus .myPaperHeader .owner p {
+    font-size: 30px;
+    letter-spacing: 1px;
+    margin: 0;
+}
+.container .contentPlus .myPaperHeader .back {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    height: 100px;
+}
+.container .contentPlus .myPaperHeader .back .backArrow {
+    margin-left: auto;
+    margin-right: 10px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    border: transparent;
+    background-color: transparent;
+}
+.container .contentPlus .myPaperHeader .back .backArrow img {
+    width: 50px;
+    height: 50px;
+}
+.container .contentPlus .plus {
+    margin: 0 200px;
+    height: calc(100% - 130px);
+    background-color: #fff;
+    border-radius: 15px;
+}
+.container .contentPlus .plus .plusContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    padding: 10px;
+    height: calc(100% - 40px);
+    background-color: #ffe9ed;
+    border-radius: 15px;
+}
+.plus .plusContainer .plusHeader {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+}
+.plus .plusContainer .plusHeader p {
+    font-size: 30px;
+    margin: 0;
+    font-weight: 600;
+}
+.plus .plusContainer .addComment {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: calc(100% - 50px);
+}
+.plus .plusContainer .addComment #plusContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: calc(100% - 100px);
+    margin-bottom: 20px;
+}
+.addComment #plusContent #paperContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+#plusContent #paperContent .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    width: 100%;
+    height: 50px;
+    background-color: #fff;
+    border-radius: 15px;
+    margin-bottom: 5px;
+}
+#plusContent #paperContent #content {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    height: calc(100% - 50px);
+    border-radius: 15px;
+    font-size: 20px;
+    overflow-y: auto;
+    resize: none;
+    border: none;
+    margin-top: 5px;
+}
+#content::-webkit-scrollbar {
+    width: 10px;
+}
+#content::-webkit-scrollbar-thumb {
+    height: 10px;
+    background: rgba(255, 0, 0, 0.2);
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+.plus .plusButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+}
+.plus .plusButton .addContent {
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 500;
+    width: 150px;
+    height: 50px;
+    background: #61c188;
+    color: #fff;
+    padding: 10px 30px;
+    text-align: center;
+    border-radius: 30px;
+    cursor: pointer;
+    border: transparent;
+}
+.plusButton .addContent:hover {
+    background: #3f915f;
+}

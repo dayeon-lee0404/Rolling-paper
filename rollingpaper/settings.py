@@ -23,10 +23,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-#m*$*r+*1(bp&h&xejvwbuhv(8-f2*x5%fla=6&iwmm-qnh4cs'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*',]
+# 로그인 성공후 이동하는 URL
+LOGIN_REDIRECT_URL = '/'
 
+# 로그아웃시 이동하는 URL
+LOGOUT_REDIRECT_URL = '/'
 
 # Application definition
 
@@ -129,9 +133,12 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'static'
-]
+if DEBUG == True:
+    STATICFILES_DIRS = [
+        BASE_DIR / 'static'
+    ]
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

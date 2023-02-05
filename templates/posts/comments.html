@@ -13,47 +13,37 @@
             </div>
             <div class="logInOut">
                 <!-- 클릭 시 첫번째 화면으로 이동해야 합니다. -->
-                <a class="logout" href="{% url 'account_logout' %}" href="">로그아웃</a>
+                <a class="logout" href="{% url 'account_logout' %}">로그아웃</a>
             </div>
         </div>
         <!-- content -->
         <div class="myPaper">
             <div class="myPaperHeader">
                 <div class="owner">
-                    <!-- 임시로 하드코딩하였습니다. 추후 백에서 데이터를 받아와야 하는 부분입니다. -->
-                    <p id="nicknamePaper">{{ writer }}님의 롤링페이퍼</p>
+                    <p id="nicknamePaper">{{ title }}</p>
                 </div>
                 <div class="back">
                     <!-- 화살표 클릭시 메인페이지로 돌아갑니다.` -->
-                    <button onclick="history.back()" type="button" class="backArrow">
-                        <img src="../../static/image/backbutton.png">
-                    </button>
+                    <a class="backArrow" onclick="history.back()">
+                        <img src="../../../static/image/backbutton.png">
+                    </a>
                 </div>
             </div>
             <div class="theList">
-                <div class="listContainer" style="margin: 63px 20px;">
+                <div class="listContainer">
                     <!-- listContent를 백에서 받아와야 합니다.(제목 / 날짜) 일단 하드코딩으로 임의의 데이터를 추가하였습니다. -->
-                {% if posts%}
-                {% for post in posts %}
+                {% if comments%}
+                {% for comment in comments %}
                     <div class="listContent">
                         <div class="circle">
                             <span></span>
                         </div>
                         <div class="titleDate">
-                            <div class="title">
+                            <div class="title" style="height: 100%;">
                                 <span id="listTitle">
-                                        <a href="{% url 'post:post_detail' post.id %}">
-                                        {{ post.title }}
+                                    <a href="{% url 'post:comments_detail' post_id comment.id%}">
+                                        <p>아이디 : {{ comment.comment_writer }}</p>
                                     </a>
-                                </span>
-                            </div>
-                            <div class="date">
-                                <span id="listDate">
-                                    {% if post.update_dttm %}
-                                        <td>{{ post.update_dttm }}</td>
-                                    {% else %}
-                                        <td>{{ post.write_dttm }}</td>
-                                    {% endif %}
                                 </span>
                             </div>
                         </div>
@@ -63,12 +53,18 @@
                 <p style="
                     position: absolute;
                     font-size: 20px;
-                    top: 60%;
+                    top: 55%;
                     left: 50%;
                     transform: translate(-50%, -50%);
-                    margin: 0;
                 ">글이 없습니다.</p>
                 {% endif %}
+                </div>
+                <div class="plusDelete">
+                    <div class="plus">
+                        <a href="{% url 'post:comments_input' post_id %}">
+                            <button class="contentPlus">댓글달기</button>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

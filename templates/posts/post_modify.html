@@ -1,19 +1,46 @@
-
-{% block contents %}
-<div>게시판 글 수정하기!</div>
-<form action="" method='POST'>
-    {% csrf_token %}
-
-    {% for form in forms %}
-    <div>
-        <label for="{{ form.id_for_label }}">{{ form.label }}</label>
-        {{ form }}
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <link rel = "stylesheet" href = "{% static 'css/mypagePlus.css' %}">
+{% endblock %}
+{% block content %}
+<div class="container">
+<!-- header -->
+    <div class="header">
+        <div class="logo">
+            <a href="{% url 'post:index' %}">Rolling Paper</a>
+        </div>
+        <div class="logInOut">
+            <!-- 클릭 시 첫번째 화면으로 이동해야 합니다. -->
+            <a class="logout" href="{% url 'account_logout' %}">로그아웃</a>
+        </div>
     </div>
-    {% endfor %}
-
-    {% if error %}
-    {{ error }}
-    {% endif %}
-    <button type="submit">글 수정하기</button>
-</form>
-{% endblock contents %}
+    <div class="contentPlus">
+        <div class="myPaperHeader">
+                <!-- 임시로 하드코딩하였습니다. 추후 백에서 데이터를 받아와야 하는 부분입니다. -->
+                <div class="owner">{{ user.username }}님의 롤링페이퍼</div>
+                <div class="back">
+                    <button class="backArrow" onclick="history.back()" type="button">
+                        <img src="../../../static/image/backbutton.png">
+                    </button>
+                </div>
+        </div>
+        <form action="" method="POST" id="write_form">
+            {% csrf_token %}
+            {% for form in forms %}
+            <div class="write">
+                <label for="{{ form.id_for_label }}">{{ form.label }}</label>
+               {{ form|safe }}
+            </div>
+            {% endfor %}
+            <div class="submitDiv">
+                <input type="date" name="dday_ddmt">
+                {% if error %}
+                {{ error }}
+                {% endif %}
+                <button class="addContent" type="submit">수정하기</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}

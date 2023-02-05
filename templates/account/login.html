@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel = "stylesheet" href = "{% static '/css/login.css' %}">
+{% endblock %}
+{% block content %}
+<div class="container">
+    <!--header-->
+    <div class="header">
+        <div class="logo">
+            <a href={% url "post:index" %}>Rolling Paper</a>
+        </div>
+        <div class="buttons">
+            <a class="signup" href="{% url 'account_signup' %}">회원가입</a>
+        </div>
+    </div>
+    <!-- content -->
+    <div class = "content">
+        <div class="backgroundbox">
+            <div class="logintext">
+                <p class="logintxt">로그인</p>
+            </div>
+            <div class ="info">
+                <form action="" method = "POST">
+                    {% csrf_token %}
+                    <div class="loginbox">
+                        <div class="id">
+                            <p> 아이디 : </p>
+                            <input name="login" type="text" >
+                        </div>
+                    </div>
+                    <div class="passwordbox">
+                        <div class="pw">
+                            <p>비밀번호 : </p>
+                            <input name="password" type="password">
+                        </div>
+                    </div>
+                    <div class="button">
+                        <input class="login" type="submit" value="로그인">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
