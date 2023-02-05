@@ -234,12 +234,15 @@ body {
     border: dashed 1px;
 }
 .contentPlus .modify #modifyContent #paperContent {
-    height: calc(100% - 150px);
     align-items: start;
 }
 .modify #modifyContent #paperContent p {
     margin: 0;
     padding-left: 5px;
+}
+.modify #modifyContent #paperContent p img {
+    width: 100px;
+    height: 100px;
 }
 .modify .modifyContainer .countComments {
     display: flex;
