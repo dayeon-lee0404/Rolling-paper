@@ -234,9 +234,21 @@ body {
     border: dashed 1px;
 }
 .contentPlus .modify #modifyContent #paperContent {
+    height: calc(100% - 150px);
     flex-direction: column;
     align-items: start;
     height: auto;
+    overflow-y: auto;
+}
+#paperContent::-webkit-scrollbar {
+    width: 10px;
+}
+#paperContent::-webkit-scrollbar-thumb {
+    height: 100px;
+    background: rgba(255, 0, 0, 0.2);
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
 }
 .modify #modifyContent #paperContent p {
     margin: 0;
